@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "FoldHistory",
+  "version": "1.0.0",
+  "description": "一款旨在替代 Chrome 原生历史记录页面的浏览器扩展插件，提供按域名聚合、隐私模糊以及个性化定制功能。",
+  "permissions": [
+    "history",
+    "storage",
+    "favicon"
+  ],
+  "chrome_url_overrides": {
+    "history": "index.html"
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  }
+}
