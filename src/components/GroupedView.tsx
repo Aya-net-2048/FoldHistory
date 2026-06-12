@@ -11,7 +11,7 @@ interface Props {
   customSites: Record<string, CustomSiteData>;
   onDeleteGroup: (domain: string, timestampStart: number, timestampEnd: number) => void;
   onUpdateCustomSite: (domain: string, data: Partial<CustomSiteData>) => void;
-  onSiteClick: (domain: string) => void;
+  onSiteClick: (domain: string, timestamp: number) => void;
 }
 
 export const GroupedView: React.FC<Props> = ({
@@ -46,7 +46,7 @@ export const GroupedView: React.FC<Props> = ({
               customData={customSites[site.domain]}
               onDeleteGroup={(domain) => onDeleteGroup(domain, dayGroup.timestamp, endOfDay)}
               onEditCustom={setEditingHost}
-              onClick={onSiteClick}
+              onClick={(domain) => onSiteClick(domain, dayGroup.timestamp)}
             />
           ))}
         </div>

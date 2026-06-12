@@ -3,6 +3,7 @@ import type { HistoryItem as HistoryItemType } from '../types';
 import { Trash2, EyeOff, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { useI18n } from '../utils/i18n';
+import { getFaviconUrl } from '../utils/favicon';
 
 interface Props {
   item: HistoryItemType;
@@ -15,21 +16,12 @@ export const HistoryItem: React.FC<Props> = ({ item, onDelete, onTogglePrivacy, 
   const { t } = useI18n();
   const timeStr = format(new Date(item.lastVisitTime), 'HH:mm');
 
-  const getFaviconUrl = (url: string) => {
-    try {
-      const urlObj = new URL(url);
-      return `https://www.google.com/s2/favicons?domain=${urlObj.hostname}&sz=32`;
-    } catch (e) {
-      return '';
-    }
-  };
-
   return (
     <div className="group flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors relative">
       <div className="flex items-center space-x-3 overflow-hidden flex-1">
         <span className="text-xs text-gray-500 w-12 flex-shrink-0">{timeStr}</span>
         <img 
-          src={getFaviconUrl(item.url)} 
+          src={getFaviconUrl(item.url, 32)} 
           alt="" 
           className="w-4 h-4 flex-shrink-0"
           onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCI+PC9jaXJjbGU+PC9zdmc+'; }}

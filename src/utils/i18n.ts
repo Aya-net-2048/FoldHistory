@@ -22,7 +22,11 @@ const translations = {
     unlockHover: '悬停解锁',
     blurToggle: '隐私',
     exportSuccess: '导出成功',
-    noMoreData: '没有更多记录了'
+    noMoreData: '没有更多记录了',
+    invalidImage: '无效的图片格式',
+    imageTooLarge: '图片体积过大（最大 1MB）',
+    imageHint: '推荐尺寸: 64x64。最大体积: 1MB',
+    clearLogo: '清除 Logo'
   },
   en: {
     title: 'History',
@@ -43,7 +47,11 @@ const translations = {
     unlockHover: 'Hover to unlock',
     blurToggle: 'Privacy',
     exportSuccess: 'Export successful',
-    noMoreData: 'No more data'
+    noMoreData: 'No more data',
+    invalidImage: 'Invalid image format',
+    imageTooLarge: 'Image too large (max 1MB)',
+    imageHint: 'Recommended size: 64x64. Max size: 1MB',
+    clearLogo: 'Clear Logo'
   }
 };
 

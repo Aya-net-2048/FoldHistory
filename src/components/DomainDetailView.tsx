@@ -5,9 +5,11 @@ import { Virtuoso } from 'react-virtuoso';
 import { useI18n } from '../utils/i18n';
 import { format, startOfDay, isToday, isYesterday } from 'date-fns';
 import { ArrowLeft } from 'lucide-react';
+import { getFaviconUrl } from '../utils/favicon';
 
 interface Props {
   domain: string;
+  initialTimestamp?: number;
   historyItems: HistoryItemType[];
   privacyRecords: Record<string, boolean>;
   customSites: Record<string, CustomSiteData>;
@@ -18,6 +20,7 @@ interface Props {
 
 export const DomainDetailView: React.FC<Props> = ({
   domain,
+  initialTimestamp,
   historyItems,
   privacyRecords,
   customSites,
@@ -40,11 +43,16 @@ export const DomainDetailView: React.FC<Props> = ({
 
   const groupedList: Array<{ type: 'header'; id: string; title: string } | { type: 'item'; data: HistoryItemType }> = [];
   let currentDay = -1;
+  let initialIndex = 0;
+  const targetDay = initialTimestamp ? startOfDay(new Date(initialTimestamp)).getTime() : -1;
 
   for (const item of domainItems) {
     const itemDay = startOfDay(new Date(item.lastVisitTime)).getTime();
     if (itemDay !== currentDay) {
       currentDay = itemDay;
+      if (currentDay === targetDay) {
+        initialIndex = groupedList.length;
+      }
       groupedList.push({ type: 'header', id: `header-${currentDay}`, title: formatDayTitle(currentDay) });
     }
     groupedList.push({ type: 'item', data: item });
@@ -72,7 +80,7 @@ export const DomainDetailView: React.FC<Props> = ({
   };
 
   const displayName = customSites[domain]?.customName || domainItems[0]?.domainWithoutSuffix || domain;
-  const displayLogo = customSites[domain]?.customLogo || `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+  const displayLogo = customSites[domain]?.customLogo || getFaviconUrl(domainItems[0]?.url || domain);
 
   return (
     <div className="absolute inset-0 bg-white dark:bg-gray-900 z-20 flex flex-col animate-in slide-in-from-right duration-200">
@@ -98,6 +106,7 @@ export const DomainDetailView: React.FC<Props> = ({
             </div>
           ) : (
             <Virtuoso
+              initialTopMostItemIndex={initialIndex}
               style={{ height: '100%', width: '100%' }}
               data={groupedList}
               itemContent={renderItem}

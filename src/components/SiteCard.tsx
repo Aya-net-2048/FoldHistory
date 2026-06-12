@@ -2,6 +2,7 @@ import React from 'react';
 import type { SiteGroup, CustomSiteData } from '../types';
 import { Edit3, Trash2 } from 'lucide-react';
 import { useI18n } from '../utils/i18n';
+import { getFaviconUrl } from '../utils/favicon';
 
 interface Props {
   group: SiteGroup;
@@ -21,7 +22,7 @@ export const SiteCard: React.FC<Props> = ({
   const { t } = useI18n();
 
   const displayName = customData?.customName || group.domainWithoutSuffix;
-  const displayLogo = customData?.customLogo || `https://www.google.com/s2/favicons?domain=${group.domain}&sz=64`;
+  const displayLogo = customData?.customLogo || getFaviconUrl(group.visits[0]?.url || group.domain);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-all hover:shadow-md flex flex-col h-full">

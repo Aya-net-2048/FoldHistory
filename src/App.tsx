@@ -15,7 +15,7 @@ function App() {
   const [viewMode, setViewMode] = useState<'grouped' | 'timeline'>('grouped');
   const [darkMode, setDarkMode] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
-  const [activeDomainDetail, setActiveDomainDetail] = useState<string | null>(null);
+  const [activeDomainDetail, setActiveDomainDetail] = useState<{ domain: string; timestamp: number } | null>(null);
 
   const { historyItems, groupedHistory, deleteItem, deleteHostItems } = useHistory(debouncedSearch);
   const { customSites, privacyRecords, updateCustomSite, togglePrivacy } = useStorage();
@@ -126,7 +126,7 @@ function App() {
                 customSites={customSites}
                 onDeleteGroup={deleteHostItems}
                 onUpdateCustomSite={updateCustomSite}
-                onSiteClick={setActiveDomainDetail}
+                onSiteClick={(domain, timestamp) => setActiveDomainDetail({ domain, timestamp })}
               />
             ) : (
               <TimelineView 
@@ -140,7 +140,8 @@ function App() {
 
           {activeDomainDetail && (
             <DomainDetailView
-              domain={activeDomainDetail}
+              domain={activeDomainDetail.domain}
+              initialTimestamp={activeDomainDetail.timestamp}
               historyItems={historyItems}
               privacyRecords={privacyRecords}
               customSites={customSites}

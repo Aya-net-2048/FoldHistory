@@ -57,7 +57,11 @@ export function useHistory(searchText: string = '') {
           domain,
           domainWithoutSuffix
         };
-      }).filter(item => item.url && item.hostname); // basic filter
+      }).filter(item => {
+        if (!item.url || !item.hostname) return false;
+        if (item.url.startsWith('chrome-extension://') || item.url.startsWith('chrome://')) return false;
+        return true;
+      }); // basic filter
       
       // Sort by time descending
       items.sort((a, b) => b.lastVisitTime - a.lastVisitTime);
