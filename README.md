@@ -1,73 +1,19 @@
-# React + TypeScript + Vite
+# FoldHistory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FoldHistory 是一款针对 Chrome 浏览器的历史记录管理插件。它替代了浏览器默认的历史记录页面，提供更直观的记录显示与管理方式。
 
-Currently, two official plugins are available:
+## 主要功能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **聚合视图**：将同一天的历史记录按网站域名进行分组折叠。点击对应卡片，可以精确查看或前后滑动该网站的具体访问历史。
+* **时间线视图**：按时间先后顺序，线性显示所有的浏览记录。
+* **自定义显示**：支持修改网站的显示名称，支持上传本地图片作为网站图标。
+* **记录管理**：支持删除单条记录，或按天批量删除指定网站的全部访问记录。
+* **隐私保护**：对单条记录提供点击模糊隐藏的功能。
+* **导出功能**：支持将指定日期的历史记录导出为本地文件。
 
-## React Compiler
+## 安装步骤
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. 下载最新版本的打包压缩包并解压到本地。
+2. 在 Chrome 浏览器地址栏输入 `chrome://extensions/` 打开扩展程序页面。
+3. 开启页面右上角的“开发者模式”。
+4. 点击“加载已解压的扩展程序”，选择解压后的文件夹即可。
